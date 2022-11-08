@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  adminer:
+    build: ./
+    volumes:
+      - ./servers.php/:/var/www/html/servers.php
+    ports:
+      - 80:80
