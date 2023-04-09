@@ -20,14 +20,10 @@ RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/a
         php8-mysqli@community \
         tini && \
     mkdir -p $WORKDIR && \
-
     wget https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION.php -O $WORKDIR/adminer.php && \
-
     mkdir $WORKDIR/plugins && \
-
     wget https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php -O $WORKDIR/plugins/plugin.php && \
     wget https://raw.githubusercontent.com/giofreitas/one-click-login/master/oneclick-login.php -O $WORKDIR/plugins/oneclick-login.php && \
-
     ln -s /usr/bin/php8 /usr/bin/php && \
     apk del wget ca-certificates && \
     rm -rf /var/cache/apk/*
