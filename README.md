@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.com/newparadigma/adminer-mysql-ocl.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-mysql-ocl)
 [![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-mysql-ocl.svg)](https://hub.docker.com/r/newparadigma/adminer-mysql-ocl)
 
-GitHub: https://github.com/newparadigma/adminer-mysql-ocl
+GitHub: https://github.com/newparadigma/adminer-mysql-ocl  
 DockerHub: https://hub.docker.com/r/newparadigma/adminer-mysql-ocl
 
 ## General
