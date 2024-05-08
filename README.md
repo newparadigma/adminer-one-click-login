@@ -44,13 +44,7 @@ return [
 
 Name - driver
 MySQL - server
-SQLite 3 - sqlite
-SQLite 2 - sqlite2
 PostgreSQL - pgsql
-Oracle (beta) - oracle
-MS SQL (beta) - mssql
-MongoDB (alpha) - mongo
-Elasticsearch (beta) - elastic
 
 ### Example
 
