@@ -1,11 +1,8 @@
 # Adminer with one click login plugin
 
-## Adminer Docker Image
-
-[![Build Status](https://travis-ci.com/newparadigma/adminer-one-click-login.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-one-click-login)
+<!-- [![Build Status](https://travis-ci.com/newparadigma/adminer-one-click-login.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-one-click-login) -->
 [![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-one-click-login.svg)](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
 
-[DockerHub](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
 
 ## General
 
@@ -15,13 +12,17 @@
 - Adminer plugins: One click login
 - PHP version: 8
 
+### Example adminer ui
+
+![Adminer UI](https://raw.githubusercontent.com/newparadigma/adminer-one-click-login/main/adminer-ui.png)
+
 ## Versions
 
-| Image                                            | Technologies       |
-|--------------------------------------------------|--------------------|
-| newparadigma/adminer-one-click-login             | MySQL / PostgreSQL |
-| newparadigma/adminer-one-click-login:mysql       | MySQL              |
-| newparadigma/adminer-one-click-login:pgsql       | PostgreSQL         |
+| Image                                      | Technologies       |
+|--------------------------------------------|--------------------|
+| newparadigma/adminer-one-click-login       | MySQL / PostgreSQL |
+| newparadigma/adminer-one-click-login:mysql | MySQL              |
+| newparadigma/adminer-one-click-login:pgsql | PostgreSQL         |
 
 ## Usage
 
@@ -32,13 +33,13 @@ Create adminer-servers.php in a project directory and define your database detai
 ```php
 <?php
 return [
-    '{host}' => [
+    '{host}' => [ // IP address or domain name
         // Required parameters
         'username'  => '{username}',
         'pass'      => '{password}',
         // Optional parameters
-        'driver'    => '{driver_type}', // if omitted, defaults to 'server' (mysql driver)
-        'label'     => '{label}',
+        'driver'    => '{driver_type}', // db driver, if omitted, defaults to 'server' (mysql driver)
+        'label'     => '{label}', // custom name of service, replace {host} IP address or domain in UI
         'databases' => [
             '{database_1_name}' => '{Database label 1}',
             '{database_2_name}' => '{Database label 2}'
@@ -49,9 +50,10 @@ return [
 
 ### List of available drivers
 
-Name - driver
-MySQL - server
-PostgreSQL - pgsql
+| DB         | driver |
+|------------|--------|
+| MySQL      | server |
+| PostgreSQL | pgsql  |
 
 ### Example
 
@@ -81,18 +83,15 @@ return [
         // Required parameters
         'username'  => 'userA',
         'pass'      => 'passwordA',
+        // Optional parameters
         'driver'    => 'pgsql',
     ],
 ];
 ```
 
-### Example adminer ui
-
-![Adminer UI](https://raw.githubusercontent.com/newparadigma/adminer-one-click-login/main/adminer-ui.png)
-
 ### docker-compose.yml
 
-Add the following structure to your docker-compose.yml file:
+Mount the adminer-servers.php file to the container
 
 ```yaml
 adminer:
