@@ -26,9 +26,9 @@
 
 ## Usage
 
-### adminer-servers.php
+### Create adminer-servers.php in a project directory and define your database details with the following structure
 
-Create adminer-servers.php in a project directory and define your database details with the following structure
+#### Schema
 
 ```php
 <?php
@@ -48,14 +48,14 @@ return [
 ];
 ```
 
-### List of available drivers
+#### List of available drivers
 
 | DB         | driver |
 |------------|--------|
 | MySQL      | server |
 | PostgreSQL | pgsql  |
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -89,9 +89,9 @@ return [
 ];
 ```
 
-### docker-compose.yml
+### Mount the adminer-servers.php file to the container
 
-Mount the adminer-servers.php file to the container
+#### docker-compose.yml
 
 ```yaml
 adminer:
@@ -99,7 +99,16 @@ adminer:
   volumes:
     - ./adminer-servers.php/:/var/www/html/adminer-servers.php
   ports:
-    - 80:80
+    - 8080:80
+```
+
+#### CLI
+
+```sh
+docker run \
+    -p 8080:80
+    -v ./adminer-servers.php/:/var/www/html/adminer-servers.php
+    newparadigma/adminer-one-click-login
 ```
 
 ## Credits
