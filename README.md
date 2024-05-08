@@ -5,7 +5,6 @@
 [![Build Status](https://travis-ci.com/newparadigma/adminer-one-click-login.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-one-click-login)
 [![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-one-click-login.svg)](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
 
-[GitHub](https://github.com/newparadigma/adminer-one-click-login)
 [DockerHub](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
 
 ## General
@@ -15,6 +14,14 @@
 - Adminer version: 4.8.1
 - Adminer plugins: One click login
 - PHP version: 8
+
+## Versions
+
+| Image                                            | Technologies       |
+|--------------------------------------------------|--------------------|
+| newparadigma/adminer-one-click-login             | MySQL / PostgreSQL |
+| newparadigma/adminer-one-click-login:mysql       | MySQL              |
+| newparadigma/adminer-one-click-login:pgsql       | PostgreSQL         |
 
 ## Usage
 
