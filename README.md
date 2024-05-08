@@ -89,9 +89,9 @@ return [
 ];
 ```
 
-### docker-compose.yml
+### Mount the adminer-servers.php file to the container
 
-Mount the adminer-servers.php file to the container
+#### docker-compose.yml
 
 ```yaml
 adminer:
