@@ -1,7 +1,6 @@
-version: '3.8'
 services:
   adminer:
-    build: ./
+    build: ./full
     volumes:
       - ./servers.php/:/var/www/html/servers.php
     ports:
