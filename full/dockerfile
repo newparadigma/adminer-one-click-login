@@ -11,7 +11,7 @@ ENV WORKDIR=/var/www/html
 
 ENV ADMINER_PHP=https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION.php
 ENV PLUGIN_PHP=https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php
-ENV ONE_CLICK_LOGIN=https://raw.githubusercontent.com/newparadigma/one-click-login/master/oneclick-login.php
+ENV ONE_CLICK_LOGIN=https://raw.githubusercontent.com/masavini/one-click-login/master/oneclick-login.php
 ENV ADMINER_WITH_PLUGINS=https://raw.githubusercontent.com/newparadigma/adminer-one-click-login/main/adminer-with-plugins.php
 
 RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories && \
@@ -24,6 +24,8 @@ RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/a
         php8-session@community \
         php8-mysqli@community \
         php8-pgsql@community \
+        # php8-json@community \
+        # php8-pecl-mongodb@community \
         tini && \
     mkdir -p $WORKDIR/plugins && \
     wget $ADMINER_PHP -O $WORKDIR/adminer.php && \
