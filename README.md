@@ -1,23 +1,27 @@
-# Adminer for MySQL with one click login plugin.
+# Adminer with one click login plugin
 
 ## Adminer Docker Image
-[![Build Status](https://travis-ci.com/newparadigma/adminer-mysql-ocl.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-mysql-ocl)
-[![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-mysql-ocl.svg)](https://hub.docker.com/r/newparadigma/adminer-mysql-ocl)
 
-GitHub: https://github.com/newparadigma/adminer-mysql-ocl  
-DockerHub: https://hub.docker.com/r/newparadigma/adminer-mysql-ocl
+[![Build Status](https://travis-ci.com/newparadigma/adminer-one-click-login.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-one-click-login)
+[![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-one-click-login.svg)](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
+
+[GitHub](https://github.com/newparadigma/adminer-one-click-login)
+[DockerHub](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
 
 ## General
-- Weight: ~20 MB
+
+- Weight: ~10 MB
 - Based on Alpine Linux 3.17
 - Adminer version: 4.8.1
 - Adminer plugins: One click login
 - PHP version: 8
-- Only for MySQL
 
 ## Usage
+
 ### adminer-servers.php
+
 Create adminer-servers.php in a project directory and define your database details with the following structure
+
 ```php
 <?php
 return [
@@ -26,7 +30,8 @@ return [
         'username'  => '{username}',
         'pass'      => '{password}',
         // Optional parameters
-        'label'     => '{MySQL}',
+        'driver'    => '{driver_type}', // if omitted, defaults to 'server' (mysql driver)
+        'label'     => '{label}',
         'databases' => [
             '{database_1_name}' => '{Database label 1}',
             '{database_2_name}' => '{Database label 2}'
@@ -35,7 +40,20 @@ return [
 ];
 ```
 
-### Example 
+### List of available drivers
+
+Name - driver
+MySQL - server
+SQLite 3 - sqlite
+SQLite 2 - sqlite2
+PostgreSQL - pgsql
+Oracle (beta) - oracle
+MS SQL (beta) - mssql
+MongoDB (alpha) - mongo
+Elasticsearch (beta) - elastic
+
+### Example
+
 ```php
 <?php
 return [
@@ -44,6 +62,7 @@ return [
         'username'  => 'userA',
         'pass'      => 'passwordA',
         // Optional parameters
+        'driver'    => 'server',
         'label'     => 'MySQL1',
         'databases' => [
             'films' => 'Films',
@@ -61,17 +80,22 @@ return [
         // Required parameters
         'username'  => 'userA',
         'pass'      => 'passwordA',
+        'driver'    => 'pgsql',
     ],
 ];
 ```
+
 ### Example adminer ui
-![Adminer UI](https://raw.githubusercontent.com/newparadigma/adminer-mysql-ocl/main/adminer-ui.png)
+
+![Adminer UI](https://raw.githubusercontent.com/newparadigma/adminer-one-click-login/main/adminer-ui.png)
 
 ### docker-compose.yml
+
 Add the following structure to your docker-compose.yml file:
+
 ```yaml
 adminer:
-  image: newparadigma/adminer-mysql-ocl
+  image: newparadigma/adminer-one-click-login
   volumes:
     - ./adminer-servers.php/:/var/www/html/adminer-servers.php
   ports:
@@ -79,10 +103,13 @@ adminer:
 ```
 
 ## Credits
-### This project is based on the following projects:
+
+### This project is based on the following projects
+
 - [Alpine linux](https://www.alpinelinux.org)
 - [Adminer](https://www.adminer.org/en/)
 
-### Inspired by 
+### Inspired by
+
 - [dockette/adminer](https://github.com/dockette/adminer)
 - [edyan/docker-adminer](https://github.com/edyan/docker-adminer)
