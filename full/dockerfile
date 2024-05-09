@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.14
 
 LABEL maintainer="Ivan Iashin <newparadigma1@gmail.com>"
 
@@ -24,6 +24,8 @@ RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/a
         php8-session@community \
         php8-mysqli@community \
         php8-pgsql@community \
+        # php8-json@community \
+        php8-pecl-mongodb@community \
         tini && \
     mkdir -p $WORKDIR/plugins && \
     wget $ADMINER_PHP -O $WORKDIR/adminer.php && \

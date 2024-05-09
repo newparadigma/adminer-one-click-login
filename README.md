@@ -6,7 +6,7 @@
 
 ## General
 
-- Weight: ~10 MB
+- Weight: ~10-20 MB
 - Based on Alpine Linux 3.17
 - Adminer version: 4.8.1
 - Adminer plugins: One click login
@@ -18,11 +18,13 @@
 
 ## Versions
 
-| Image                                      | Technologies       |
-|--------------------------------------------|--------------------|
-| newparadigma/adminer-one-click-login       | MySQL / PostgreSQL |
-| newparadigma/adminer-one-click-login:mysql | MySQL              |
-| newparadigma/adminer-one-click-login:pgsql | PostgreSQL         |
+| Image                                      | Technologies                 |
+|--------------------------------------------|------------------------------|
+| newparadigma/adminer-one-click-login       | MySQL / PostgreSQL / MongoDB |
+| newparadigma/adminer-one-click-login:last  | MySQL / PostgreSQL / MongoDB |
+| newparadigma/adminer-one-click-login:mysql | MySQL                        |
+| newparadigma/adminer-one-click-login:pgsql | PostgreSQL                   |
+| newparadigma/adminer-one-click-login:mongo | MongoDB                      |
 
 ## Usage
 
@@ -54,6 +56,7 @@ return [
 |------------|--------|
 | MySQL      | server |
 | PostgreSQL | pgsql  |
+| MongoDB    | mongo  |
 
 #### Example
 

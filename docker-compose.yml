@@ -1,7 +1,42 @@
 services:
   adminer:
     build: ./full
+    container_name: adminer-ocl-app
     volumes:
-      - ./servers.php/:/var/www/html/servers.php
+      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
     ports:
       - 80:80
+  mysql:
+    image: biarms/mysql:5.7
+    container_name: adminer-ocl-mysql
+    command: --init-file /data/application/init_mysql.sql
+    volumes:
+      - ./init_mysql.sql:/data/application/init_mysql.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: homestead
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+  mongo:
+    image: mongo
+    container_name: adminer-ocl-mongo
+    volumes:
+      - ./init_mongo.js:/docker-entrypoint-initdb.d/init_mongo.js
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: homestead
+      MONGO_INITDB_ROOT_PASSWORD: homestead
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+  postgre:
+    image: postgres:16-alpine
+    container_name: adminer-ocl-postgre
+    environment:
+      POSTGRES_DB: homestead
+      POSTGRES_PASSWORD: homestead
+      POSTGRES_USER: homestead
