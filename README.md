@@ -6,7 +6,7 @@
 
 ## General
 
-- Weight: ~10 MB
+- Weight: ~10-20 MB
 - Based on Alpine Linux 3.17
 - Adminer version: 4.8.1
 - Adminer plugins: One click login
