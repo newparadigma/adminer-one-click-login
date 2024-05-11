@@ -1,0 +1,55 @@
+name: CI for Docker Compose
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:latest
+        options: --privileged
+        ports:
+          - 8080:8080
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start Docker Compose services
+        run: docker-compose up -d
+
+      - name: Wait for services to be up
+        run: |
+          # Here you might need to wait longer or check the logs of your services to ensure they are up and running
+          sleep 30
+
+      - name: Check for login button
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { chromium } = require('playwright');
+            (async () => {
+              const browser = await chromium.launch();
+              const page = await browser.newPage();
+              await page.goto('http://localhost:80');
+              await page.waitForSelector('button:has-text("Enter")');
+              await page.click('button:has-text("Enter")');
+              await page.waitForFunction('document.body.innerText.includes("Database: local")');
+              await browser.close();
+            })();
+          result-encoding: string
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Stop Docker Compose services
+        run: docker-compose down
