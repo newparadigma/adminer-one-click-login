@@ -1,42 +1,55 @@
 services:
-  adminer:
+  app-full:
     build: ./full
-    container_name: adminer-ocl-app
+    container_name: adminer-ocl-app-full
     volumes:
       - ./adminer-servers.php/:/var/www/html/adminer-servers.php
     ports:
       - 80:80
-  mysql:
-    image: biarms/mysql:5.7
-    container_name: adminer-ocl-mysql
-    command: --init-file /data/application/init_mysql.sql
+  app-mongo:
+    build: ./mongo
+    container_name: adminer-ocl-app-mongo
     volumes:
-      - ./init_mysql.sql:/data/application/init_mysql.sql
+      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+    ports:
+      - 81:80
+  app-mysql:
+    build: ./mysql
+    container_name: adminer-ocl-app-mysql
+    volumes:
+      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+    ports:
+      - 82:80
+  app-postgre:
+    build: ./postgre
+    container_name: adminer-ocl-app-postgre
+    volumes:
+      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+    ports:
+      - 83:80
+  db-mysql:
+    image: mysql:8
+    container_name: adminer-ocl-db-mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: homestead
-    expose:
-      - "3306"
+      MYSQL_DATABASE: local
+      MYSQL_USER: local
+      MYSQL_PASSWORD: local
     ports:
-      - "3306:3306"
-  mongo:
+      - 3306:3306
+  db-mongo:
     image: mongo
-    container_name: adminer-ocl-mongo
-    volumes:
-      - ./init_mongo.js:/docker-entrypoint-initdb.d/init_mongo.js
+    container_name: adminer-ocl-db-mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: homestead
-      MONGO_INITDB_ROOT_PASSWORD: homestead
-    expose:
-      - "27017"
+      MONGO_INITDB_DATABASE: local
+      MONGO_INITDB_ROOT_USERNAME: local
+      MONGO_INITDB_ROOT_PASSWORD: local
     ports:
-      - "27017:27017"
-  postgre:
+      - 27017:27017
+  db-postgre:
     image: postgres:16-alpine
-    container_name: adminer-ocl-postgre
+    container_name: adminer-ocl-db-postgre
     environment:
-      POSTGRES_DB: homestead
-      POSTGRES_PASSWORD: homestead
-      POSTGRES_USER: homestead
+      POSTGRES_DB: local
+      POSTGRES_PASSWORD: local
+      POSTGRES_USER: local

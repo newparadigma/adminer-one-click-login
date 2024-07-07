@@ -2,7 +2,7 @@
 
 <!-- [![Build Status](https://travis-ci.com/newparadigma/adminer-one-click-login.svg?branch=master)](https://travis-ci.com/newparadigma/adminer-one-click-login) -->
 [![Docker Pulls](https://img.shields.io/docker/pulls/newparadigma/adminer-one-click-login.svg)](https://hub.docker.com/r/newparadigma/adminer-one-click-login)
-
+[![CodeFactor](https://www.codefactor.io/repository/github/newparadigma/adminer-one-click-login/badge)](https://www.codefactor.io/repository/github/newparadigma/adminer-one-click-login)
 
 ## General
 

@@ -17,7 +17,7 @@ ENV ADMINER_WITH_PLUGINS=https://raw.githubusercontent.com/newparadigma/adminer-
 RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories && \
     apk update && \
     apk upgrade && \
-    apk add \
+    apk add --no-cache \
         wget \
         ca-certificates \
         php8@community \
@@ -25,10 +25,10 @@ RUN echo '@community http://nl.alpinelinux.org/alpine/v3.14/community' >> /etc/a
         php8-pgsql@community \
         tini && \
     mkdir -p $WORKDIR/plugins && \
-    wget $ADMINER_PHP -O $WORKDIR/adminer.php && \
-    wget $PLUGIN_PHP -O $WORKDIR/plugins/plugin.php && \
-    wget $ONE_CLICK_LOGIN -O $WORKDIR/plugins/oneclick-login.php && \
-    wget $ADMINER_WITH_PLUGINS -O $WORKDIR/index.php && \
+    wget -nv $ADMINER_PHP -O $WORKDIR/adminer.php && \
+    wget -nv $PLUGIN_PHP -O $WORKDIR/plugins/plugin.php && \
+    wget -nv $ONE_CLICK_LOGIN -O $WORKDIR/plugins/oneclick-login.php && \
+    wget -nv $ADMINER_WITH_PLUGINS -O $WORKDIR/index.php && \
     ln -s /usr/bin/php8 /usr/bin/php && \
     apk del wget ca-certificates && \
     rm -rf /var/cache/apk/*
