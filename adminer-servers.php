@@ -1,33 +1,33 @@
 <?php
 return [
-    'mysql' => [
+    'db-mysql' => [
         // Required parameters
-        'username'  => 'homestead',
-        'pass'      => 'homestead',
+        'username'  => 'local',
+        'pass'      => 'local',
         // Optional parameters
         'driver'    => 'server',
         'databases' => [
-            'homestead' => 'homestead',
+            'local' => 'local',
         ]
     ],
-    'mongo' => [
+    'db-mongo' => [
         // Required parameters
-        'username'  => 'homestead',
-        'pass'      => 'homestead',
+        'username'  => 'local',
+        'pass'      => 'local',
         // Optional parameters
         'driver'    => 'mongo',
         'databases' => [
-            'homestead' => 'homestead',
+            'local' => 'local',
         ]
     ],
-    'postgre' => [
+    'db-postgre' => [
         // Required parameters
-        'username'  => 'homestead',
-        'pass'      => 'homestead',
+        'username'  => 'local',
+        'pass'      => 'local',
         // Optional parameters
         'driver'    => 'pgsql',
         'databases' => [
-            'homestead' => 'homestead',
+            'local' => 'local',
         ]
     ],
 ];
