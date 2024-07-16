@@ -1,4 +1,4 @@
-name: CI for Docker Compose
+name: test
 
 on:
   pull_request:
@@ -17,24 +17,17 @@ jobs:
           - 8080:8080
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Set up Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+        run: sudo apt update && apt install -y -no-cache docker-compose
 
       - name: Start Docker Compose services
         run: docker-compose up -d
 
       - name: Wait for services to be up
-        run: |
-          # Here you might need to wait longer or check the logs of your services to ensure they are up and running
-          sleep 30
+        run: sleep 30
 
       - name: Check for login button
-        uses: actions/github-script@v5
+        uses: actions/github-script@latest
         with:
           script: |
             const { chromium } = require('playwright');
