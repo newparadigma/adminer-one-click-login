@@ -27,7 +27,7 @@ jobs:
         run: sleep 30
 
       - name: Check for login button
-        uses: actions/github-script@latest
+        uses: actions/github-script@v7
         with:
           script: |
             const { chromium } = require('playwright');
