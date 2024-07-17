@@ -9,17 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      docker:
-        image: docker:latest
-        options: --privileged
-        ports:
-          - 8080:8080
-
     steps:
-      - name: Set up Docker Compose
-        run: sudo apt update && sudo apt install -y docker-compose
-
       - name: Start Docker Compose services
         run: docker-compose up -d
 
