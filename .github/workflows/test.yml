@@ -21,13 +21,11 @@ jobs:
       - name: List files in the repository
         run: ls ${{ github.workspace }}
 
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Start Docker Compose services
+        run: docker-compose up -d
 
-      # - name: Start Docker Compose services
-      #   run: docker-compose up -d
-
-      # - name: Wait for services to be up
-      #   run: sleep 30
+      - name: Wait for services to be up
+        run: sleep 30
 
       # - name: Check for login button
       #   uses: actions/github-script@v7
@@ -47,8 +45,10 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Stop Docker Compose services
-      #   run: docker-compose down
+      - name: Stop Docker Compose services
+        run: docker-compose down
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
 
 
 # name: GitHub Actions Demo
