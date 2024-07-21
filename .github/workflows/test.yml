@@ -32,21 +32,27 @@ jobs:
       - name: Install dependencies
         run: npm install puppeteer
 
+      - name: Install Chrome
+        run: sudo apt-get install -y google-chrome-stable
+
       - name: Run Puppeteer script
         uses: actions/github-script@v7
         with:
-          script: |
-            const puppeteer = require('puppeteer');
-  
-            (async () => {
-              const browser = await puppeteer.launch();
-              const page = await browser.newPage();
-              await page.goto('http://localhost');
-              const content = await page.content();
-              if (!content.includes('adminer')) {
-                throw new Error('The text "adminer" was not found on the page');
-              }
-              await browser.close();
-            })();
+            script: |
+              const puppeteer = require('puppeteer');
+    
+              (async () => {
+                const browser = await puppeteer.launch({
+                  executablePath: '/usr/bin/google-chrome',
+                  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                });
+                const page = await browser.newPage();
+                await page.goto('http://localhost');
+                const content = await page.content();
+                if (!content.includes('adminer')) {
+                  throw new Error('The text "adminer" was not found on the page');
+                }
+                await browser.close();
+              })();
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
