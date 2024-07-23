@@ -39,20 +39,44 @@ jobs:
         uses: actions/github-script@v7
         with:
             script: |
-              const puppeteer = require('puppeteer');
-    
-              (async () => {
-                const browser = await puppeteer.launch({
-                  executablePath: '/usr/bin/google-chrome',
-                  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-                });
-                const page = await browser.newPage();
-                await page.goto('http://localhost');
-                const content = await page.content();
-                if (!content.includes('adminer')) {
-                  throw new Error('The text "adminer" was not found on the page');
-                }
-                await browser.close();
-              })();
+                const puppeteer = require('puppeteer');
+
+                (async () => {
+                  const browser = await puppeteer.launch({
+                    executablePath: '/usr/bin/google-chrome',
+                    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                  });
+                  const page = await browser.newPage();
+                  await page.goto('http://localhost:81');
+                  
+                  const content = await page.content();
+                  if (!content.includes('adminer')) {
+                    throw new Error('The text "adminer" was not found on the page');
+                  }
+
+                  if (!content.includes('mongo')) {
+                    throw new Error('The text "mongo" was not found on the page');
+                  }
+
+                  // Нажимаем на кнопку "Enter"
+                  await page.click('input[type="submit"][value="Enter"]');
+
+                  // Ждем, пока страница загрузится после отправки формы
+                  await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+                  // Проверяем наличие заголовка "Database: local"
+                  const h2Text = await page.evaluate(() => {
+                    const h2 = document.querySelector('h2');
+                    return h2 ? h2.textContent : null;
+                  });
+
+                  if (h2Text !== 'Database: local') {
+                    throw new Error('The text "Database: local" was not found in the h2 tag');
+                  }
+
+                  console.log('Successfully found "Database: local" in h2 tag');
+
+                  await browser.close();
+                })();
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
