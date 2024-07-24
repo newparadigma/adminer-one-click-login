@@ -21,9 +21,6 @@ jobs:
       - name: List files in the repository
         run: ls ${{ github.workspace }}
 
-      - name: Start Docker Compose services
-        run: docker-compose up -d
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -34,6 +31,9 @@ jobs:
 
       - name: Install Chrome
         run: sudo apt-get install -y google-chrome-stable
+
+      - name: Start Docker Compose services
+        run: docker-compose up -d app-mongo db-mongo
 
       - name: Run Puppeteer script
         uses: actions/github-script@v7
@@ -62,7 +62,7 @@ jobs:
                   await page.click('input[type="submit"][value="Enter"]');
 
                   // Ждем, пока страница загрузится после отправки формы
-                  await page.waitForTimeout(2000); // Ждем 2 секунды
+                  await new Promise(resolve => setTimeout(resolve, 2000)); // Ждем 2 секунды
 
                   // Проверяем наличие заголовка "Database: local"
                   const h2Text = await page.evaluate(() => {
