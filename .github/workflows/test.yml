@@ -62,7 +62,7 @@ jobs:
                   await page.click('input[type="submit"][value="Enter"]');
 
                   // Ждем, пока страница загрузится после отправки формы
-                  await page.waitForNavigation({ waitUntil: 'networkidle0' });
+                  await page.waitForTimeout(2000); // Ждем 2 секунды
 
                   // Проверяем наличие заголовка "Database: local"
                   const h2Text = await page.evaluate(() => {
