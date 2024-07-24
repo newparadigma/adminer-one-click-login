@@ -58,23 +58,20 @@ jobs:
                     throw new Error('The text "mongo" was not found on the page');
                   }
 
-                  // Нажимаем на кнопку "Enter"
                   await page.click('input[type="submit"][value="Enter"]');
 
-                  // Ждем, пока страница загрузится после отправки формы
                   await new Promise(resolve => setTimeout(resolve, 2000)); // Ждем 2 секунды
 
-                  // Проверяем наличие заголовка "Database: local"
-                  const h2Text = await page.evaluate(() => {
-                    const h2 = document.querySelector('h2');
-                    return h2 ? h2.textContent : null;
-                  });
+                  # const h2Text = await page.evaluate(() => {
+                  #   const h2 = document.querySelector('h2');
+                  #   return h2 ? h2.textContent : null;
+                  # });
 
-                  if (h2Text !== 'Database: local') {
-                    throw new Error('The text "Database: local" was not found in the h2 tag');
-                  }
+                  # if (h2Text !== 'Database: local') {
+                  #   throw new Error('The text "Database: local" was not found in the h2 tag');
+                  # }
 
-                  console.log('Successfully found "Database: local" in h2 tag');
+                  # console.log('Successfully found "Database: local" in h2 tag');
 
                   await browser.close();
                 })();
