@@ -24,7 +24,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install puppeteer
@@ -62,16 +62,16 @@ jobs:
 
                   await new Promise(resolve => setTimeout(resolve, 2000)); // Ждем 2 секунды
 
-                  # const h2Text = await page.evaluate(() => {
-                  #   const h2 = document.querySelector('h2');
-                  #   return h2 ? h2.textContent : null;
-                  # });
+                  const h2Text = await page.evaluate(() => {
+                    const h2 = document.querySelector('h2');
+                    return h2 ? h2.textContent : null;
+                  });
 
-                  # if (h2Text !== 'Database: local') {
-                  #   throw new Error('The text "Database: local" was not found in the h2 tag');
-                  # }
+                  if (h2Text !== 'Database: local') {
+                    throw new Error('The text "Database: local" was not found in the h2 tag');
+                  }
 
-                  # console.log('Successfully found "Database: local" in h2 tag');
+                  console.log('OK');
 
                   await browser.close();
                 })();
