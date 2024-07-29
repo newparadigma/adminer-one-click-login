@@ -50,9 +50,7 @@ services:
       POSTGRES_PASSWORD: local
       POSTGRES_USER: local
   node:
-    image: node:22-alpine
+    build: ./node
     container_name: adminer-ocl-node
-    working_dir: /app
     volumes:
       - ./:/app
-    command: ash -c "apk add chromium && node script.js"

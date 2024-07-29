@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+console.log('MONGO');
 
 (async () => {
   let content;
@@ -22,9 +23,9 @@ const puppeteer = require('puppeteer');
     throw new Error('The text "adminer" was not found on the page');
   }
 
-  console.log('content.includes mongo');
-  if (!content.includes('mongo')) {
-    throw new Error('The text "mongo" was not found on the page');
+  console.log('content.includes db-mongo');
+  if (!content.includes('db-mongo')) {
+    throw new Error('The text "db-mongo" was not found on the page');
   }
 
   console.log('page.click');
@@ -41,17 +42,12 @@ const puppeteer = require('puppeteer');
     throw new Error('The text "MongoDB (alpha)" was not found on the page');
   }
 
-  console.log('content.includes db-mongo');
-  if (!content.includes('db-mongo')) {
-    throw new Error('The text "db-mongo" was not found on the page');
-  }
-
   console.log('content.includes Database: local');
   if (!content.includes('Database: local')) {
     throw new Error('The text "Database: local" was not found on the page');
   }
 
-  console.log('OK');
-
   await browser.close();
+
+  console.log('OK');
 })();
