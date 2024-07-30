@@ -54,3 +54,6 @@ services:
     container_name: adminer-ocl-node
     volumes:
       - ./:/app
+networks:
+  adminer-ocl:
+    name: adminer-ocl
