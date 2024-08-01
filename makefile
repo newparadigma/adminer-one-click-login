@@ -6,6 +6,9 @@ up:
 
 init: build up
 
+npm-install:
+	@docker compose exec node npm install
+
 test:
 	@docker compose exec node node tests/test.js
 
