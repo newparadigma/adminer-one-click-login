@@ -22,7 +22,7 @@ jobs:
         run: ls ${{ github.workspace }}
 
       - name: Start Docker Compose services
-        run: docker-compose up -d db-mysql app-mysql
+        run: docker-compose up -d
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -30,7 +30,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm install puppeteer
+        run: npm install
 
       - name: Install Chrome
         run: sudo apt-get install -y google-chrome-stable
@@ -39,6 +39,6 @@ jobs:
         run: cp .env.github-workflow .env.local
 
       - name: Run tests
-        run: node tests/test.js mysql
+        run: node tests/test.js
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
