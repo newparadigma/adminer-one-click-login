@@ -7,9 +7,16 @@ up:
 init: build up
 
 test:
-	@docker compose exec node node tests/mongo.js
-	@docker compose exec node node tests/mysql.js
-	@docker compose exec node node tests/postgre.js
+	@docker compose exec node node tests/test.js
+
+test-mysql:
+	@docker compose exec node node tests/test.js mysql
+
+test-mongo:
+	@docker compose exec node node tests/test.js mongo
+
+test-postgre:
+	@docker compose exec node node tests/test.js postgre
 
 docker-hub-push:
 	@docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t newparadigma/adminer-one-click-login:full ./full --push
