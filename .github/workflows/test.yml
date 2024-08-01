@@ -22,12 +22,12 @@ jobs:
         run: ls ${{ github.workspace }}
 
       - name: Start Docker Compose services
-        run: docker-compose up -d
+        run: docker-compose up -d db-mysql app-mysql node
 
       - name: Install node dependencies
         run: docker compose exec node npm install
 
       - name: Run tests
-        run: docker compose exec node node tests/test.js
+        run: docker compose exec node node tests/test.js mysql
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
