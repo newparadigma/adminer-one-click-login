@@ -1,4 +1,16 @@
 const puppeteer = require('puppeteer');
+const dotenv = require('dotenv')
+
+dotenv.config(); // Загрузит .env
+dotenv.config({ path: '.env.local', override: true }); // Загрузит .env.local и переопределит значения
+
+const env = {
+  browserPath: process.env.BROWSER_PATH || '/usr/bin/chromium',
+  urlFull: process.env.URL_FULL || 'http://app-full',
+  urlMysql: process.env.URL_MYSQL || 'http://app-mysql',
+  urlMongo: process.env.URL_MONGO || 'http://app-mongo',
+  urlPostgre: process.env.URL_POSTGRE || 'http://app-postgre',
+};
 
 choosedGroups = [];
 if (process.argv.length > 2) {
@@ -10,7 +22,7 @@ let groupCases = [
     group: 'mysql',
     cases: [
       {
-        url: 'http://app-mysql',
+        url: env.urlMysql,
         dbContainerName: 'db-mysql',
         driver: 'MySQL',
         schema: 'Database: local'
@@ -21,7 +33,7 @@ let groupCases = [
     group: 'mongo',
     cases: [
       {
-        url: 'http://app-mongo',
+        url: env.urlMongo,
         dbContainerName: 'db-mongo',
         driver: 'MongoDB (alpha)',
         schema: 'Database: local'
@@ -32,7 +44,7 @@ let groupCases = [
     group: 'postgre',
     cases: [
       {
-        url: 'http://app-postgre',
+        url: env.urlPostgre,
         dbContainerName: 'db-postgre',
         driver: 'PostgreSQL',
         schema: 'Schema: public'
@@ -43,19 +55,19 @@ let groupCases = [
     group: 'full',
     cases: [
       {
-        url: 'http://app-full',
+        url: env.urlFull,
         dbContainerName: 'db-mysql',
         driver: 'MySQL',
         schema: 'Database: local'
       },
       {
-        url: 'http://app-full',
+        url: env.urlFull,
         dbContainerName: 'db-mongo',
         driver: 'MongoDB (alpha)',
         schema: 'Database: local'
       },
       {
-        url: 'http://app-full',
+        url: env.urlFull,
         dbContainerName: 'db-postgre',
         driver: 'PostgreSQL',
         schema: 'Schema: public'
@@ -144,7 +156,7 @@ async function test(url, dbContainerName, driver, schema) {
 
   console.log('browser init');
   const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium',
+    executablePath: env.browserPath,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
