@@ -83,7 +83,7 @@ if (choosedGroups.length > 0) {
 groupCases.forEach(({ group, cases }) => {
   console.log(group.toUpperCase());
   cases.forEach(({ url, dbContainerName, driver, schema }) => {
-    test(url, dbContainerName, driver, schema);
+    test(url, dbContainerName, driver, schema, group);
   });
 }); 
 //   console.log('browser init');
@@ -151,19 +151,19 @@ groupCases.forEach(({ group, cases }) => {
 //   console.log('OK');
 // })();
 
-async function test(url, dbContainerName, driver, schema) {
+async function test(url, dbContainerName, driver, schema, group) {
   let content;
 
-  console.log('browser init');
+  console.log(group + ' browser init');
   const browser = await puppeteer.launch({
     executablePath: env.browserPath,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
-  console.log('page init');
+  console.log(group + ' page init');
   const page = await browser.newPage();
 
-  console.log('page goto');
+  console.log(group + ' page goto');
   maxAttempts = 3;
   timeout = 5000;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -180,20 +180,20 @@ async function test(url, dbContainerName, driver, schema) {
     }
   }
   
-  console.log('page.content');
+  console.log(group + ' page.content');
   content = await page.content();
 
-  console.log('content.includes adminer');
+  console.log(group + ' content.includes adminer');
   if (!content.includes('adminer')) {
     throw new Error('The text "adminer" was not found on the page');
   }
 
-  console.log('content.includes ' + dbContainerName);
+  console.log(group + ' content.includes ' + dbContainerName);
   if (!content.includes(dbContainerName)) {
     throw new Error('The text "' + dbContainerName + '" was not found on the page');
   }
 
-  console.log('page.click');
+  console.log(group + ' page.click');
   await page.evaluate((dbContainerName) => {
     const dbInput = content.querySelector('input[value="'+ dbContainerName + '"]');
     if (dbInput) {
@@ -213,23 +213,23 @@ async function test(url, dbContainerName, driver, schema) {
     }
   }, dbContainerName);
 
-  console.log('timeout');
+  console.log(group + ' timeout');
   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  console.log('page.content');
+  console.log(group + ' page.content');
   content = await page.content();
 
-  console.log('content.includes ' + driver);
+  console.log(group + ' content.includes ' + driver);
   if (!content.includes(driver)) {
     throw new Error('The text "' + driver + '" was not found on the page');
   }
 
-  console.log('content.includes ' + schema);
+  console.log(group + ' content.includes ' + schema);
   if (!content.includes(schema)) {
     throw new Error('The text "' + schema + '" was not found on the page');
   }
 
   await browser.close();
 
-  console.log('OK');
+  console.log(group + ' OK');
 }
