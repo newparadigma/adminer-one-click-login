@@ -10,21 +10,21 @@ services:
     build: ./mongo
     container_name: adminer-ocl-app-mongo
     volumes:
-      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+      - ./adminer-servers-mongo.php/:/var/www/html/adminer-servers.php
     ports:
       - 81:80
   app-mysql:
     build: ./mysql
     container_name: adminer-ocl-app-mysql
     volumes:
-      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+      - ./adminer-servers-mysql.php/:/var/www/html/adminer-servers.php
     ports:
       - 82:80
   app-postgre:
     build: ./postgre
     container_name: adminer-ocl-app-postgre
     volumes:
-      - ./adminer-servers.php/:/var/www/html/adminer-servers.php
+      - ./adminer-servers-postgre.php/:/var/www/html/adminer-servers.php
     ports:
       - 83:80
   db-mysql:
@@ -35,8 +35,6 @@ services:
       MYSQL_DATABASE: local
       MYSQL_USER: local
       MYSQL_PASSWORD: local
-    ports:
-      - 3306:3306
   db-mongo:
     image: mongo
     container_name: adminer-ocl-db-mongo
@@ -44,8 +42,6 @@ services:
       MONGO_INITDB_DATABASE: local
       MONGO_INITDB_ROOT_USERNAME: local
       MONGO_INITDB_ROOT_PASSWORD: local
-    ports:
-      - 27017:27017
   db-postgre:
     image: postgres:16-alpine
     container_name: adminer-ocl-db-postgre
@@ -53,3 +49,8 @@ services:
       POSTGRES_DB: local
       POSTGRES_PASSWORD: local
       POSTGRES_USER: local
+  node:
+    build: ./node
+    container_name: adminer-ocl-node
+    volumes:
+      - ./:/app
