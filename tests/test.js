@@ -162,8 +162,23 @@ async function test(url, dbContainerName, driver, schema) {
 
   console.log('page init');
   const page = await browser.newPage();
-  console.log('page init goto');
-  await page.goto(url, {timeout: 5000});
+
+  console.log('page goto');
+  maxAttempts = 3;
+  timeout = 5000;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await page.goto(url, { timeout: timeout });
+      console.log(`Успешно загружена страница ${url}`);
+      break;
+    } catch (error) {
+      console.log(`Попытка ${attempt} не удалась: ${error.message}`);
+      if (attempt === maxAttempts) {
+        throw new Error(`Не удалось загрузить страницу ${url} после ${maxAttempts} попыток`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
   
   console.log('page.content');
   content = await page.content();
