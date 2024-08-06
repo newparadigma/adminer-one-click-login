@@ -6,7 +6,7 @@
 
 ## General
 
-- Weight: ~10-20 MB
+- Weight: 7mb+
 - Based on Alpine Linux 3.14
 - Adminer version: 4.8.1
 - Adminer plugins: One click login
@@ -43,10 +43,11 @@ return [
         'driver'    => '{driver_type}', // db driver, if omitted, defaults to 'server' (mysql driver)
         'label'     => '{label}', // custom name of service, replace {host} IP address or domain in UI
         'databases' => [
-            '{database_1_name}' => '{Database label 1}',
-            '{database_2_name}' => '{Database label 2}'
+            '{database_1_name}' => '{database_1_label}',
+            '{database_2_name}' => '{database_1_label}'
         ]
     ],
+    '{host2}' => [...]
 ];
 ```
 
@@ -75,6 +76,17 @@ return [
             'serials' => 'Serials'
         ]
     ],
+    '192.168.0.2' => [
+        // Required parameters
+        'username'  => 'userA',
+        'pass'      => 'passwordA',
+        // Optional parameters
+        'driver'    => 'pgsql',
+        'label'     => 'PostgreSQL',
+        'databases' => [
+            'cartoons_1' => 'Cartoons',
+        ]
+    ],
     '192.168.0.1:3309' => [
         // Required parameters
         'username'  => 'userA',
@@ -86,15 +98,13 @@ return [
         // Required parameters
         'username'  => 'userA',
         'pass'      => 'passwordA',
-        // Optional parameters
-        'driver'    => 'pgsql',
     ],
 ];
 ```
 
 ### Mount the adminer-servers.php file to the container
 
-#### docker-compose.yml
+#### example docker-compose.yml
 
 ```yaml
 adminer:
@@ -103,15 +113,6 @@ adminer:
     - ./adminer-servers.php/:/var/www/html/adminer-servers.php
   ports:
     - 8080:80
-```
-
-#### CLI
-
-```sh
-docker run \
-    -p 8080:80
-    -v ./adminer-servers.php/:/var/www/html/adminer-servers.php
-    newparadigma/adminer-one-click-login
 ```
 
 ## Credits
