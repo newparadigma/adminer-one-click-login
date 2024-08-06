@@ -35,7 +35,7 @@
 ```php
 <?php
 return [
-    '{host}' => [ // IP address or domain name
+    '{host1}' => [ // IP address or domain name
         // Required parameters
         'username'  => '{username}',
         'pass'      => '{password}',
