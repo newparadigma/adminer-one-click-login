@@ -2,7 +2,10 @@ build:
 	@docker compose build
 
 up:
-	@docker compose up -d
+	@docker compose --profile test up -d
+
+stop:
+	@docker compose  --profile test stop
 
 init: build up
 
