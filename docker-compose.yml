@@ -54,3 +54,5 @@ services:
     container_name: adminer-ocl-node
     volumes:
       - ./:/app
+    profiles:
+      - test

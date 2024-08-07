@@ -2,7 +2,10 @@ build:
 	@docker compose build
 
 up:
-	@docker compose up -d
+	@docker compose --profile test up -d
+
+stop:
+	@docker compose  --profile test stop
 
 init: build up
 
@@ -22,8 +25,8 @@ test-postgre:
 	@docker compose exec node node tests/test.js postgre
 
 docker-hub-push:
-	@docker buildx build --platform linux/amd64, linux/i386,linux/arm/v5, linux/arm/v6, linux/arm/v7, linux/arm64 -t newparadigma/adminer-one-click-login:full ./full --push
-	@docker buildx build --platform linux/amd64, linux/i386,linux/arm/v5, linux/arm/v6, linux/arm/v7, linux/arm64 -t newparadigma/adminer-one-click-login:latest ./full --push
-	@docker buildx build --platform linux/amd64, linux/i386,linux/arm/v5, linux/arm/v6, linux/arm/v7, linux/arm64 -t newparadigma/adminer-one-click-login:mysql ./mysql --push
-	@docker buildx build --platform linux/amd64, linux/i386,linux/arm/v5, linux/arm/v6, linux/arm/v7, linux/arm64 -t newparadigma/adminer-one-click-login:mongo ./mongo --push
-	@docker buildx build --platform linux/amd64, linux/i386,linux/arm/v5, linux/arm/v6, linux/arm/v7, linux/arm64 -t newparadigma/adminer-one-click-login:postgre ./postgre --push
+	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:full ./full --push
+	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:latest ./full --push
+	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:mysql ./mysql --push
+	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:mongo ./mongo --push
+	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:postgre ./postgre --push

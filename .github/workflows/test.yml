@@ -22,7 +22,7 @@ jobs:
         run: ls ${{ github.workspace }}
 
       - name: Start Docker Compose services
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
