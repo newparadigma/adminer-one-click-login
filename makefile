@@ -24,7 +24,7 @@ test-mongo:
 test-postgre:
 	@docker compose exec node node tests/test.js postgre
 
-docker-hub-push:
+docker-build-and-push:
 	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:full ./full --push
 	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:latest ./full --push
 	@docker buildx build --platform linux/amd64,linux/i386,linux/arm/v6,linux/arm/v7,linux/arm/v8 -t newparadigma/adminer-one-click-login:mysql ./mysql --push
